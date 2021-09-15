@@ -1,6 +1,6 @@
 {
-    "name": "intracto/elastic_synonym_bundle",
-    "description": "Bundle that implements intracto/elastic_synonym",
+    "name": "intracto/elastic-synonym-bundle",
+    "description": "Bundle that implements intracto/elastic-synonym",
     "type": "symfony-bundle",
     "license": "MIT",
     "autoload": {
