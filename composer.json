@@ -1,6 +1,6 @@
 {
     "name": "intracto/elastic-synonym-bundle",
-    "description": "Bundle that implements intracto/elastic-synonym",
+    "description": "Elasticsearch synonym management using bootstrap 4",
     "type": "symfony-bundle",
     "license": "MIT",
     "autoload": {

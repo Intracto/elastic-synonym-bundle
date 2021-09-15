@@ -1,7 +1,7 @@
 Intracto Elastic Synonym
 ============
 
-This bundle integrates `intracto/elastic-synonym` into your application.
+This bundle integrates `intracto/elastic-synonym` into your application. The views are build using bootstrap 4.
 
 Installation
 ============
@@ -26,7 +26,7 @@ intracto_elastic_synonym:
     default: # unique config identifier 
       name: Synonyms # user-friendly name
       file: '%env(string:INTRACTO_ELASTIC_SYNONYM_DIR)%synonyms.txt' # absolute path to synonym file [only configs with valid files will be accessible]
-      indices: ["index"] # array of all indices that need to be refreshed on change
+      indices: ["index"] # array of all indices (or aliases) that need to be refreshed on change
 ```
 
 ```
@@ -49,13 +49,13 @@ _intracto_elastic_synonym_bundle:
 
 Security
 ========
-This bundle is supposed behind authentication, you may enforce this any way you want.
+This bundle is supposed to be behind authentication, you may enforce this any way you want.
 
 
 Override layout
 ===============
 The layout can be overridden by creating the file `templates/bundles/IntractoElasticSynonymBundle/base.html.twig`.
-Just make sure implement `{% block intracto_elastic_synonym_content %}{% endblock %}`.
+Just make sure to implement `{% block intracto_elastic_synonym_content %}{% endblock %}`.
 Example:
 ```twig
 {% extends 'base.html.twig' %}
