@@ -53,7 +53,7 @@ final class SynonymController
         $form->handleRequest( $this->request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
-                $this->synonymService->setSynonyms($config, $form->getData());
+                $this->synonymService->setSynonyms($config, $form->getData()['synonyms']);
                 $this->configService->refresh($config);
 
                 $this->session->getFlashBag()->add('success', $this->translator->trans('synonym.index.flash.success', [], 'IntractoElasticSynonym'));
