@@ -1,7 +1,5 @@
 config:
-  id: ID
   name: Naam
-  file: Bestand
   indices: Indexen
   actions:
     title: Acties

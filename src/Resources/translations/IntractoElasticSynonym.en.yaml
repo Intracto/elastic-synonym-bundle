@@ -1,7 +1,5 @@
 config:
-  id: ID
   name: Name
-  file: File
   indices: Indices
   actions:
     title: Actions

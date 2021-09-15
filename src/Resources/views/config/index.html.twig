@@ -8,9 +8,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">{{ 'config.id'|trans }}</th>
             <th scope="col">{{ 'config.name'|trans }}</th>
-            <th scope="col">{{ 'config.file'|trans }}</th>
             <th scope="col">{{ 'config.indices'|trans }}</th>
             <th scope="col">{{ 'config.actions.title'|trans }}</th>
         </tr>
@@ -18,9 +16,7 @@
         <tbody>
         {% for config in configs %}
             <tr>
-                <th scope="row">{{ config.id }}</th>
-                <td>{{ config.name }}</td>
-                <td>{{ config.file }}</td>
+                <th scope="row">{{ config.name }}</th>
                 <td>{{ config.indices|join(', ') }}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="{{ 'config.actions.title'|trans }}">

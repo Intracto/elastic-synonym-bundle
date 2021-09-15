@@ -23,6 +23,6 @@
         "symfony/options-resolver": "^4.4",
         "symfony/translation": "^4.4",
         "twig/twig": "^2.13|^3.0.4",
-        "intracto/elastic-synonym": "^0.1"
+        "intracto/elastic-synonym": "^1.0"
     }
 }
