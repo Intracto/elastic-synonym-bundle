@@ -1,0 +1,85 @@
+
+{% extends "@IntractoElasticSynonym/base.html.twig" %}
+{% trans_default_domain 'IntractoElasticSynonym' %}
+
+{% block intracto_elastic_synonym_content %}
+    <h1>{{ 'synonym.index.title'|trans({'%name%': config.name}) }}</h1>
+
+    <p>{{ 'synonym.index.info'|trans }}</p>
+
+    {{ form_start(form) }}
+
+    <div class="row mt-4 js-synonym-collection"
+         data-index="{{ form.synonyms|length }}"
+         data-prototype="{% apply escape %}{% include '@IntractoElasticSynonym/synonym/_single_synonym_form.html.twig' with {form: form.synonyms.vars.prototype, index: '__name__'} only %}{% endapply %}">
+        {% for synonymForm in form.synonyms %}
+            {% include '@IntractoElasticSynonym/synonym/_single_synonym_form.html.twig' with {form: synonymForm, index: synonymForm.vars.name} only %}
+        {% endfor %}
+    </div>
+
+    <div class="btn-group mt-2 float-right" role="group">
+        <button type="button" class="btn btn-secondary js-synonym-add">{{ 'synonym.index.synonym.add'|trans }}</button>
+        <button type="submit" class="btn btn-primary">{{ 'synonym.index.synonym.save'|trans }}</button>
+    </div>
+
+    {{ form_end(form) }}
+
+{#  OPTIONAL:   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/base.min.css"/>#}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/scripts/choices.min.js"></script>
+
+    <script type="text/javascript">
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            inputsToTags(document.querySelectorAll('input[type=text]'))
+
+            document.addEventListener('click', function (e) {
+
+                if (event.target.matches('.js-synonym-add')) {
+                    addFormToCollection(e);
+                }
+
+                if (event.target.matches('.js-synonym-remove')) {
+                    removeFormFromCollection(e);
+                }
+
+            }, false);
+        });
+
+        function addFormToCollection (e)
+        {
+            const collectionHolder = document.querySelector('.js-synonym-collection');
+            const el = htmlToElement(collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index));
+
+            inputsToTags(el.querySelectorAll('input[type=text]'))
+
+            collectionHolder.appendChild(el);
+            collectionHolder.dataset.index++;
+        }
+
+        function removeFormFromCollection (e)
+        {
+            const form = e.target.parentNode.parentNode;
+            form.parentNode.removeChild(form);
+        }
+
+        function inputsToTags(inputs)
+        {
+            [].forEach.call(inputs, function(input) {
+                new Choices(input, {
+                    duplicateItemsAllowed: false,
+                    searchEnabled: false,
+                });
+            });
+        }
+
+        function htmlToElement(html) {
+            var template = document.createElement('template');
+            html = html.trim(); // Never return a text node of whitespace as the result
+            template.innerHTML = html;
+            return template.content.firstChild;
+        }
+
+    </script>
+{% endblock intracto_elastic_synonym_content %}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="intracto_elastic_synonym.config.index" controller="intracto_elastic_synonym.controller.config::index" path="/config" />
+    <route id="intracto_elastic_synonym.config.refresh" controller="intracto_elastic_synonym.controller.config::refresh" path="/config/{id}/refresh" />
+    <route id="intracto_elastic_synonym.synonym.index" controller="intracto_elastic_synonym.controller.synonym::index" path="/synonym/{id}" />
+</routes>

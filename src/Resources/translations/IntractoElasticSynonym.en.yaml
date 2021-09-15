@@ -1,0 +1,24 @@
+config:
+  id: ID
+  name: Name
+  file: File
+  indices: Indices
+  actions:
+    title: Actions
+    refresh: Refresh
+    synonyms: Synonyms
+  index:
+    title: Elasticsearch synonym configurations
+  refresh:
+    flash:
+      success: The synonyms are succesfully refreshed
+
+synonym:
+  index:
+    title: Manage synonyms for %name%
+    info: On the left side, you should enter the words you expect to user to search for. On the right side, you should enter the words you want to match them with in your content.
+    synonym:
+      add: Add synonym
+      save: Save and refresh
+    flash:
+      success: The synonyms are succesfully saved and refreshed

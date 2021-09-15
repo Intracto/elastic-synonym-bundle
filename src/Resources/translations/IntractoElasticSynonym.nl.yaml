@@ -1,0 +1,24 @@
+config:
+  id: ID
+  name: Naam
+  file: Bestand
+  indices: Indexen
+  actions:
+    title: Acties
+    refresh: Verversen
+    synonyms: Synoniemen
+  index:
+    title: Elasticsearch synoniem configuraties
+  refresh:
+    flash:
+      success: De synoniemen zijn succesvol ververst
+
+synonym:
+  index:
+    title: Beheer synoniemen voor %name%
+    info: Aan de linkerkant kunt u de woorden invullen waarop u verwacht dat de gebruiker zoekt. Aan de rechterkant kunt u de woorden in uw content invullen, die overeenkomen met de woorden aan de linkerkant.
+    synonym:
+      add: Synoniem toevoegen
+      save: Opslaan en verversen
+    flash:
+      success: De synoniemen zijn succesvol opgeslagen en ververst
