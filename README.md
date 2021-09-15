@@ -6,7 +6,53 @@ This bundle integrates `intracto/elastic-synonym` into your application.
 Installation
 ============
 
-
 ```console
 $ composer require intracto/elastic-synonym-bundle
+```
+
+Prepare your project
+========================
+See `intracto/elastic-synonym` to prepare your project for this bundle.
+
+Configuration
+=============
+
+```yaml
+intracto_elastic_synonym:
+  synonym_configs:
+
+    default: # unique config identifier 
+      name: Synonyms # user-friendly name
+      file: PATH # absolute path to synonym file
+      indices: ["index"] # array of all indices that need to be refreshed on change
+```
+
+Routes
+======
+The available actions can be added to your routing manually, or you can include and prefix the default:
+```yaml
+_intracto_elastic_synonym_bundle:
+  resource: '@IntractoElasticSynonymBundle/Resources/config/routes.xml'
+  prefix: /elastic
+```
+
+Security
+========
+This bundle is supposed behind authentication, you may enforce this any way you want.
+
+
+Override layout
+===============
+The layout can be overridden by creating the file `templates/bundles/IntractoElasticSynonymBundle/base.html.twig`.
+Just make sure implement `{% block intracto_elastic_synonym_content %}{% endblock %}`.
+Example:
+```twig
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'IntractoElasticSynonym' %}
+
+{% block title %}{{ 'config.index.title'|trans }}{% endblock %}
+
+{% block body %}
+    {% block intracto_elastic_synonym_content %}{% endblock %}
+{% endblock %}
 ```
