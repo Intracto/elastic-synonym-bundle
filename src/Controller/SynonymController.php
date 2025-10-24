@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
@@ -23,24 +22,22 @@ final class SynonymController
     private SynonymService $synonymService;
     private Environment $twig;
     private FormFactoryInterface $formFactory;
-    private Session $session;
+    private RequestStack $requestStack;
     private RouterInterface $router;
-    private Request $request;
     private TranslatorInterface $translator;
 
-    public function __construct(ConfigService $configService, SynonymService $synonymService, Environment $twig, FormFactoryInterface $formFactory, Session $session, RouterInterface $router, RequestStack $requestStack, TranslatorInterface $translator)
+    public function __construct(ConfigService $configService, SynonymService $synonymService, Environment $twig, FormFactoryInterface $formFactory, RequestStack $requestStack, RouterInterface $router, TranslatorInterface $translator)
     {
         $this->configService = $configService;
         $this->synonymService = $synonymService;
         $this->twig = $twig;
         $this->formFactory = $formFactory;
-        $this->session = $session;
+        $this->requestStack = $requestStack;
         $this->router = $router;
-        $this->request = $requestStack->getCurrentRequest();
         $this->translator = $translator;
     }
 
-    public function index(string $id): Response
+    public function index(string $id, Request $request): Response
     {
         if (null === $config = $this->configService->getConfig($id)) {
             throw new NotFoundHttpException('Config not found');
@@ -50,13 +47,13 @@ final class SynonymController
             'synonyms' => $this->synonymService->getSynonyms($config),
         ]);
 
-        $form->handleRequest( $this->request);
+        $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $this->synonymService->setSynonyms($config, $form->getData()['synonyms']);
                 $this->configService->refresh($config);
 
-                $this->session->getFlashBag()->add('success', $this->translator->trans('synonym.index.flash.success', [], 'IntractoElasticSynonym'));
+                $this->requestStack->getSession()->getFlashBag()->add('success', $this->translator->trans('synonym.index.flash.success', [], 'IntractoElasticSynonym'));
 
                 return new RedirectResponse($this->router->generate('intracto_elastic_synonym.synonym.index', ['id' => $config->getId()]));
             } else {

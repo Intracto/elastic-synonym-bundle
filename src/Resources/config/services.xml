@@ -9,7 +9,7 @@
         <service id="intracto_elastic_synonym.controller.config" class="Intracto\ElasticSynonymBundle\Controller\ConfigController" public="true">
             <argument type="service" id="intracto_elastic_synonym.service.config"/>
             <argument type="service" id="twig"/>
-            <argument type="service" id="session"/>
+            <argument type="service" id="request_stack"/>
             <argument type="service" id="router"/>
             <argument type="service" id="translator"/>
         </service>
@@ -19,9 +19,8 @@
             <argument type="service" id="intracto_elastic_synonym.service.synonym"/>
             <argument type="service" id="twig"/>
             <argument type="service" id="form.factory"/>
-            <argument type="service" id="session"/>
-            <argument type="service" id="router"/>
             <argument type="service" id="request_stack"/>
+            <argument type="service" id="router"/>
             <argument type="service" id="translator"/>
         </service>
 

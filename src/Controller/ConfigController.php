@@ -4,8 +4,8 @@ namespace Intracto\ElasticSynonymBundle\Controller;
 
 use Intracto\ElasticSynonym\Service\ConfigService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
@@ -16,15 +16,15 @@ final class ConfigController
 {
     private ConfigService $configService;
     private Environment $twig;
-    private Session $session;
+    private RequestStack $requestStack;
     private RouterInterface $router;
     private TranslatorInterface $translator;
 
-    public function __construct(ConfigService $configService, Environment $twig, Session $session, RouterInterface $router, TranslatorInterface $translator)
+    public function __construct(ConfigService $configService, Environment $twig, RequestStack $requestStack, RouterInterface $router, TranslatorInterface $translator)
     {
         $this->configService = $configService;
         $this->twig = $twig;
-        $this->session = $session;
+        $this->requestStack = $requestStack;
         $this->router = $router;
         $this->translator = $translator;
     }
@@ -43,7 +43,7 @@ final class ConfigController
         }
 
         $this->configService->refresh($config);
-        $this->session->getFlashBag()->add('success', $this->translator->trans('config.refresh.flash.success', [], 'IntractoElasticSynonym'));
+        $this->requestStack->getSession()->getFlashBag()->add('success', $this->translator->trans('config.refresh.flash.success', [], 'IntractoElasticSynonym'));
 
         return new RedirectResponse($this->router->generate('intracto_elastic_synonym.config.index'));
     }
